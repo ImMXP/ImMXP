@@ -82,10 +82,10 @@ async def post_init(app):
 def main() -> None:
     """الدالة الرئيسية"""
     try:
-        app = ApplicationBuilder() \
-            .token(TOKEN) \
-            .post_init(post_init) \  # تم التصحيح هنا
-            .build()
+        app = (ApplicationBuilder()
+            .token(TOKEN)
+            .post_init(post_init)  # تم التصحيح هنا
+            .build())
             
         app.add_handler(CommandHandler("start", start))
         app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
