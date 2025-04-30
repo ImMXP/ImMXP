@@ -18,8 +18,14 @@ logging.basicConfig(
 )
 
 # تحميل التوكين من ملف .env
-load_dotenv()
 TOKEN = os.getenv("TOKEN")
+if not TOKEN:
+    TOKEN = "ضع_التوكن_هنا_مباشرة"  # فقط للاختبار المؤقت!
+    print("⚠️ تحذير: يتم استخدام توكن من الكود مباشرة")
+
+print("="*50)
+print(f"قيمة TOKEN: {TOKEN[:10]}...")  # عرض جزء من التوكن لأمانه
+print("="*50)
 
 # القائمة الرئيسية
 main_menu_keyboard = [
@@ -65,9 +71,6 @@ async def handle_message(update: Update, context: CallbackContext) -> None:
     if response:
         await update.message.reply_text(response)
 
-print("="*50)
-print(f"قيمة TOKEN: {TOKEN}")
-print("="*50)
 
 def main() -> None:
     """الدالة الرئيسية لتشغيل البوت"""
