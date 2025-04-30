@@ -65,9 +65,6 @@ async def handle_message(update: Update, context: CallbackContext) -> None:
     if response:
         await update.message.reply_text(response)
 
-if not TOKEN:
-    raise ValueError("لم يتم تعيين التوكن! تأكد من ملف .env أو متغيرات البيئة")
-
 print("="*50)
 print(f"قيمة TOKEN: {TOKEN}")
 print("="*50)
