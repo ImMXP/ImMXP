@@ -6,7 +6,8 @@ from telegram.ext import (
     CommandHandler,
     MessageHandler,
     filters,
-    ContextTypes
+    ContextTypes,
+    CallbackContext
 )
 
 # إعدادات التسجيل
@@ -49,7 +50,7 @@ VERSES = {
     "المشايخ المفضلين 🎙️": "سيتم إضافة المشايخ قريبًا إن شاء الله"
 }
 
-# تعريف الدوال قبل استخدامها
+# تعريف الدوال
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """معالج أمر /start"""
     user = update.effective_user
@@ -74,12 +75,16 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         logger.warning(f"المستخدم {user.id} أرسل نص غير معروف: {text}")
         await update.message.reply_text("لم أفهم طلبك، يرجى استخدام القائمة")
 
+async def post_init(app):
+    """دالة ما بعد التهيئة"""
+    logger.info("✅ البوت جاهز للعمل")
+
 def main() -> None:
     """الدالة الرئيسية"""
     try:
         app = ApplicationBuilder() \
             .token(TOKEN) \
-            .post_init(lambda _: logger.info("✅ البوت جاهز للعمل")) \
+            .post_init(post_init) \  # تم التصحيح هنا
             .build()
             
         app.add_handler(CommandHandler("start", start))
