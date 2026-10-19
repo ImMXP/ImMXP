@@ -1,0 +1,6 @@
+dist/
+__pycache__/
+*.pyc
+preview.html
+view.html
+gh-preview.html
